@@ -78,7 +78,6 @@ function Login(props) {
         setError(errorData.non_field_errors || "Login failed");
       } else {
         const data = await response.json();
-        console.log("Login successful, received data:", data);
 
         localStorage.setItem("token", data.access);
         localStorage.setItem("userID", data.user.id);
@@ -88,7 +87,6 @@ function Login(props) {
         setUser(data);
 
         if (data.user.id) {
-          console.log("Navigating to user page with ID:", data.user.id);
           navigate(`/${data.user.id}`);
         } else {
           console.error("User ID is null or undefined:", data);
