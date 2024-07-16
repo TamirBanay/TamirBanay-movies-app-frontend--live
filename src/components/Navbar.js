@@ -79,13 +79,16 @@ function ResponsiveAppBar() {
   const token = localStorage.getItem("token"); // Replace with the actual token
   // const userIsLoggedIn = localStorage.getItem("isLoggedIn");
   async function handleLogout() {
-    const response = await fetch("https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/logout/", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/logout/",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (response.ok) {
       localStorage.removeItem("token");
@@ -119,7 +122,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href={`/#/${currentUserId}`}
+            href={`#/${currentUserId}`}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -262,7 +265,7 @@ function ResponsiveAppBar() {
               </div>
             ) : (
               <Button
-                href="/#/login"
+                href="#/login"
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 login
