@@ -8,6 +8,7 @@ import RecommendOutlinedIcon from "@mui/icons-material/RecommendOutlined";
 import StarPurple500SharpIcon from "@mui/icons-material/StarPurple500Sharp";
 import { useState, useEffect, useRef } from "react";
 import {
+  _userIsLoggedIn,
   _isDark,
   _favoriteSeries,
   _currentUserId,
@@ -22,7 +23,7 @@ function Popup({ series, position }) {
   const navigate = useNavigate();
   const [currentUserId, setCurrentUserId] = useRecoilState(_currentUserId);
   const { mediaId } = useParams();
-
+  const [userIsLoggedIn, setUserIsLoggedIn] = useRecoilState(_userIsLoggedIn);
   const [seriesDetails, setSeriesDetails] = useState([]);
   const [isDark, setIsDark] = useRecoilState(_isDark);
   const [favoriteSeries, setFavoriteSeries] = useRecoilState(_favoriteSeries);
@@ -139,42 +140,50 @@ function Popup({ series, position }) {
   }, [series.id]);
 
   const addSeriesToFavorite = async (tmdbSeriesId) => {
-    const UserId = localStorage.getItem("userID");
-    const apiUrl = "https://my-movie-app-backend-f2e367df623e.herokuapp.com/add_favorite_series/";
+    if (userIsLoggedIn) {
+      const UserId = localStorage.getItem("userID");
+      const apiUrl =
+        "https://my-movie-app-backend-f2e367df623e.herokuapp.com/add_favorite_series/";
 
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tmdb_series_id: tmdbSeriesId,
-          user: UserId,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-
-        // Update favoriteSeries state
-        setFavoriteSeries((prevState) => {
-          const updatedSeries = [
-            ...prevState,
-            { tmdb_series_id: tmdbSeriesId },
-          ];
-
-          // Update favoriteSeries in localStorage
-          localStorage.setItem("favoriteSeries", JSON.stringify(updatedSeries));
-
-          return updatedSeries;
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            tmdb_series_id: tmdbSeriesId,
+            user: UserId,
+          }),
         });
-      } else {
-        const errorData = await response.json();
-        console.error("Error adding series:", errorData);
+
+        if (response.ok) {
+          const data = await response.json();
+
+          // Update favoriteSeries state
+          setFavoriteSeries((prevState) => {
+            const updatedSeries = [
+              ...prevState,
+              { tmdb_series_id: tmdbSeriesId },
+            ];
+
+            // Update favoriteSeries in localStorage
+            localStorage.setItem(
+              "favoriteSeries",
+              JSON.stringify(updatedSeries)
+            );
+
+            return updatedSeries;
+          });
+        } else {
+          const errorData = await response.json();
+          console.error("Error adding series:", errorData);
+        }
+      } catch (error) {
+        console.error("Error while making the request:", error);
       }
-    } catch (error) {
-      console.error("Error while making the request:", error);
+    } else {
+      navigate("/login");
     }
   };
 
