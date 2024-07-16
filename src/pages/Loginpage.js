@@ -57,11 +57,12 @@ function Login(props) {
   }, []);
 
   const handleLogin = async () => {
-    const url = "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/login/";
-    const credentials = {
-      username,
-      password,
-    };
+    const url =
+      "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/login/";
+    const credentials = { username, password };
+
+    console.log("Attempting login with credentials:", credentials);
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -70,18 +71,26 @@ function Login(props) {
         },
         body: JSON.stringify(credentials),
       });
+
+      console.log("Response status:", response.status);
+
       if (!response.ok) {
         const errorData = await response.json();
+        console.error("Error response:", errorData);
         setError(errorData.non_field_errors || "Login failed");
       } else {
         const data = await response.json();
+        console.log("Login successful, received data:", data);
+
         localStorage.setItem("token", data.access);
         localStorage.setItem("userID", data.user.id);
         localStorage.setItem("isLoggedIn", true);
         setUserIsLoggedIn(true);
         setCurrentUserId(data.user.id);
         setUser(data);
+
         if (data.user.id) {
+          console.log("Navigating to user page with ID:", data.user.id);
           navigate(`/${data.user.id}`);
         } else {
           console.error("User ID is null or undefined:", data);
@@ -131,9 +140,9 @@ function Login(props) {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                label="Username "
+                name="Username"
+                autoComplete="Username"
                 autoFocus
               />
               <TextField
