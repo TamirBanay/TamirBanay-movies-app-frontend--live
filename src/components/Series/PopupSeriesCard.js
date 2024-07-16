@@ -134,7 +134,6 @@ function Popup({ series, position }) {
       })
       .catch((err) => console.error(err));
   };
-  console.log();
   useEffect(() => {
     fetchSeriesDetails();
   }, [series.id]);
@@ -157,7 +156,6 @@ function Popup({ series, position }) {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Series added successfully:", data);
 
         // Update favoriteSeries state
         setFavoriteSeries((prevState) => {

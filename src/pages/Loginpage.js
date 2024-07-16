@@ -61,7 +61,6 @@ function Login(props) {
       "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/login/";
     const credentials = { username, password };
 
-    console.log("Attempting login with credentials:", credentials);
 
     try {
       const response = await fetch(url, {
@@ -72,7 +71,6 @@ function Login(props) {
         body: JSON.stringify(credentials),
       });
 
-      console.log("Response status:", response.status);
 
       if (!response.ok) {
         const errorData = await response.json();
