@@ -104,7 +104,6 @@ function ResponsiveAppBar() {
     } else {
       navigate("/login");
       console.error("Logout failed:", response.statusText);
-
     }
 
     if (user.isGoogleUser) googleLogout();
@@ -266,12 +265,23 @@ function ResponsiveAppBar() {
                 </Button>
               </div>
             ) : (
-              <Button
-                href="/TamirBanay-movies-app-frontend--live/#/login"
-                sx={{ my: 2, color: "white", display: "block" }}
+              <div
+                style={{ width: "100%", display: "flex", flexDirection: "row" }}
               >
-                login
-              </Button>
+                <Button
+                  href={`/TamirBanay-movies-app-frontend--live/#/${currentUserId}/series`}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  SERIES
+                </Button>
+                <Button
+                  href="/TamirBanay-movies-app-frontend--live/#/login"
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  login
+                </Button>
+              </div>
             )}
           </Box>
 
