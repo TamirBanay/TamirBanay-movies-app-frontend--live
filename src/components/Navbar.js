@@ -264,7 +264,10 @@ function ResponsiveAppBar() {
                 </Button>
               </div>
             ) : (
-              <Button href="#" sx={{ my: 2, color: "white", display: "block" }}>
+              <Button
+                href="/TamirBanay-movies-app-frontend--live/#/login"
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
                 login
               </Button>
             )}
