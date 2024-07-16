@@ -199,7 +199,41 @@ function ResponsiveAppBar() {
                   </MenuItem>
                 </div>
               ) : (
-                ""
+                <div>
+                  <MenuItem
+                    onClick={handleCloseNavMenu}
+                    sx={{ width: "140px" }}
+                  >
+                    <Link
+                      to={`/login`}
+                      style={{ color: "#000", textDecoration: "none" }}
+                    >
+                      LOGIN
+                    </Link>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleCloseNavMenu}
+                    sx={{ width: "140px" }}
+                  >
+                    <Link
+                      to={`/#/`}
+                      style={{ color: "#000", textDecoration: "none" }}
+                    >
+                      MOVIES
+                    </Link>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleCloseNavMenu}
+                    sx={{ width: "140px" }}
+                  >
+                    <Link
+                      to={`/${null}/series`}
+                      style={{ color: "#000", textDecoration: "none" }}
+                    >
+                      SERIES
+                    </Link>
+                  </MenuItem>
+                </div>
               )}
             </Menu>
           </Box>
