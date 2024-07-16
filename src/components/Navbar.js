@@ -102,7 +102,9 @@ function ResponsiveAppBar() {
       setCurrentUserId(null);
       navigate("/login");
     } else {
+      navigate("/login");
       console.error("Logout failed:", response.statusText);
+
     }
 
     if (user.isGoogleUser) googleLogout();
