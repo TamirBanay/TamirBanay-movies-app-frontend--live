@@ -74,7 +74,6 @@ export default function SignUp() {
         // Handle error
       } else {
         const userData = await response.json();
-        console.log("Signup successful", userData);
         navigate("/login");
 
         // Handle success
