@@ -134,7 +134,7 @@ function AddToFavoritList(props) {
           (favoriteMovie) => favoriteMovie.tmdb_movie_id === props.movieId
         )
           ? "Remove from list"
-          : "Add from favorites"}
+          : "Add to favorites"}
       </Typography>
     </div>
   );
