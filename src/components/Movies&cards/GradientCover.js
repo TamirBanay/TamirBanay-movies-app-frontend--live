@@ -121,8 +121,12 @@ export default function GradientCover(props) {
   }, [isDark]);
 
   useEffect(() => {
-    if (userIsLoggedIn) {
-      fetch(`https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/user_detail/${UserID}/`)
+    if (userId != undefined) {
+      console.log("innnn " + userId);
+
+      fetch(
+        `https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/user_detail/${UserID}/`
+      )
         .then((response) => response.json())
         .then((data) => {
           setUser(data);
@@ -133,7 +137,7 @@ export default function GradientCover(props) {
           console.error("There was a problem with the fetch:", error)
         );
     }
-  }, []);
+  }, [userIsLoggedIn]);
 
   const handleOpenMovie = (movieID) => {
     setMovieIsOpen(!movieIsOpen);
@@ -144,19 +148,34 @@ export default function GradientCover(props) {
   };
 
   const fetchFavoriteMovies = (UserID) => {
-    fetch(`https://my-movie-app-backend-f2e367df623e.herokuapp.com/favorite_movies/${UserID}/`)
-      .then((response) => response.json())
+    if (userId != undefined) {
+      console.error("UserID is null or undefined");
+      return;
+    }
+
+    fetch(
+      `https://my-movie-app-backend-f2e367df623e.herokuapp.com/favorite_movies/${UserID}/`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
         setFavoriteMovies(data.movies);
       })
-      .catch((error) =>
-        console.error("There was a problem with the fetch:", error)
-      );
+      .catch((error) => {
+        console.error("There was a problem with the fetch:", error);
+      });
   };
 
   useEffect(() => {
-    if (userIsLoggedIn) fetchFavoriteMovies(UserID);
-  }, []);
+    const UserID = localStorage.getItem("userID");
+    if (userIsLoggedIn && UserID) {
+      fetchFavoriteMovies(UserID);
+    }
+  }, [userIsLoggedIn]);
 
   const imgPath = "https://image.tmdb.org/t/p/original/";
 

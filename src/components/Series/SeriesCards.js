@@ -12,7 +12,7 @@ import Popup from "./PopupSeriesCard";
 import IconButton from "@mui/joy/IconButton";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
 import {
   _favoriteSeries,
   _userIsLoggedIn,
@@ -30,7 +30,7 @@ function SeriesSection({ seriesType, seriesData, imgPath }) {
   const [favoriteSeries, setFavoriteSeries] = useRecoilState(_favoriteSeries);
   const [userIsLoggedIn, setUserIsLoggedIn] = useRecoilState(_userIsLoggedIn);
   const [isDark, setIsDark] = useRecoilState(_isDark);
-
+  let { userId } = useParams();
   const scrollRef = useRef(null);
   const hoverTimeoutRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -42,7 +42,9 @@ function SeriesSection({ seriesType, seriesData, imgPath }) {
   const [reviewsOn, setreviewsOn] = useRecoilState(_reviewsOpen);
 
   const fetchFavoriteMovies = (UserID) => {
-    fetch(`https://my-movie-app-backend-f2e367df623e.herokuapp.com/get_favorite_series/${UserID}/`)
+    fetch(
+      `https://my-movie-app-backend-f2e367df623e.herokuapp.com/get_favorite_series/${UserID}/`
+    )
       .then((response) => response.json())
       .then((data) => {
         setFavoriteSeries(data.series);
@@ -52,7 +54,7 @@ function SeriesSection({ seriesType, seriesData, imgPath }) {
       );
   };
   useEffect(() => {
-    fetchFavoriteMovies(UserID);
+    if (userId != undefined) fetchFavoriteMovies(UserID);
   }, []);
   const handleScrollLeft = () => {
     scrollRef.current.scrollBy({
