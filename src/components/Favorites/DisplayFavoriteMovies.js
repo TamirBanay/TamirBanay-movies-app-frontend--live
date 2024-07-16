@@ -39,7 +39,7 @@ function DisplayFavoriteMovies() {
     _favoritMoviesDetails
   );
   const handleRoutToTrailer = (movieID) => {
-    navigate(`/${currentUserId}/trailer/${movieID}`);
+    navigate(`/${currentUserId}/trailer/movie/${movieID}`);
   };
   const removeFromFavorit = (movieId) => {
     const url = `https://my-movie-app-backend-f2e367df623e.herokuapp.com/remove_favorite/${movieId}/${UserID}/`;
