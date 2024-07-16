@@ -209,7 +209,7 @@ function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href={`/#/${currentUserId}`}
+            href={`/TamirBanay-movies-app-frontend--live/#/${currentUserId}`}
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
