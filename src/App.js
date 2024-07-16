@@ -107,7 +107,7 @@ function App(props) {
   };
   return (
     <div className="App" id={isDark} style={{ minHeight: "100vh" }}>
-      <HashRouter basename={baseUrl}>
+      <HashRouter>
         <CheckToken />
         <Navbar />
         <Routes>
