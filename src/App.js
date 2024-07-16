@@ -46,9 +46,16 @@ function App(props) {
   const [selectType, setSelectType] = useRecoilState(_selectType);
   const UserID = localStorage.getItem("userID");
   const [favoriteSeries, setFavoriteSeries] = useRecoilState(_favoriteSeries);
+  const baseUrl =
+    process.env.NODE_ENV === "development"
+      ? ""
+      : "/TamirBanay-movies-app-frontend--live";
+
   const fetchUserData = () => {
     if (currentUserId) {
-      fetch(`https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/user_detail/${userId}/`)
+      fetch(
+        `https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/user_detail/${userId}/`
+      )
         .then((response) => response.json())
         .then((data) => {
           setUser(data);
@@ -100,7 +107,7 @@ function App(props) {
   };
   return (
     <div className="App" id={isDark} style={{ minHeight: "100vh" }}>
-      <HashRouter>
+      <HashRouter basename={baseUrl}>
         <CheckToken />
         <Navbar />
         <Routes>
