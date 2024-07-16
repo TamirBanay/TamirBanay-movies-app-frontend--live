@@ -192,7 +192,7 @@ function Login(props) {
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
-                  <Link href="/#/signup" variant="body2">
+                  <Link href="/TamirBanay-movies-app-frontend--live/#/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </div>
