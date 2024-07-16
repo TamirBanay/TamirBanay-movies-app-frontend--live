@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/TamirBanay-movies-app-frontend--live/static/css/main.b628cef9.css",
-    "main.js": "/TamirBanay-movies-app-frontend--live/static/js/main.17f9827b.js",
+    "main.js": "/TamirBanay-movies-app-frontend--live/static/js/main.fea02476.js",
     "static/js/787.28cb0dcd.chunk.js": "/TamirBanay-movies-app-frontend--live/static/js/787.28cb0dcd.chunk.js",
     "index.html": "/TamirBanay-movies-app-frontend--live/index.html",
     "main.b628cef9.css.map": "/TamirBanay-movies-app-frontend--live/static/css/main.b628cef9.css.map",
-    "main.17f9827b.js.map": "/TamirBanay-movies-app-frontend--live/static/js/main.17f9827b.js.map",
+    "main.fea02476.js.map": "/TamirBanay-movies-app-frontend--live/static/js/main.fea02476.js.map",
     "787.28cb0dcd.chunk.js.map": "/TamirBanay-movies-app-frontend--live/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b628cef9.css",
-    "static/js/main.17f9827b.js"
+    "static/js/main.fea02476.js"
   ]
 }
