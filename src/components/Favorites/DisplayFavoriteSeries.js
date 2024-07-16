@@ -112,7 +112,7 @@ function DisplayFavoriteSeries() {
         JSON.stringify(favoriteSeriesStorage)
       );
     }
-  }, [favoriteSeriesStorage]);
+  }, []);
 
   return (
     <Grid
