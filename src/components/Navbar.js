@@ -238,14 +238,14 @@ function ResponsiveAppBar() {
                 style={{ width: "100%", display: "flex", flexDirection: "row" }}
               >
                 <Button
-                  href={`/#/${currentUserId}/series`}
+                  href={`/TamirBanay-movies-app-frontend--live/#/${currentUserId}/series`}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   SERIES
                 </Button>
                 <Button
-                  href={`/#/${currentUserId}/favorits`}
+                  href={`/TamirBanay-movies-app-frontend--live/#/${currentUserId}/favorits`}
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
