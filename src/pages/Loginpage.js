@@ -22,6 +22,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import GoogleLogInComponet from "../components/LoginComponents/GoogleLogInComponet";
 import FaceBookLogInComponent from "../components/LoginComponents/FaceBookLogInComponent";
+import { Alert } from "@mui/material";
 
 function Copyright(props) {
   return (
@@ -73,7 +74,15 @@ function Login(props) {
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error response:", errorData);
-        setError(errorData.non_field_errors || "Login failed");
+
+        let errorMessage = "An unexpected error occurred. Please try again.";
+        if (errorData.non_field_errors) {
+          errorMessage = errorData.non_field_errors.join(", ");
+        } else if (errorData.detail) {
+          errorMessage = errorData.detail;
+        }
+
+        setError(errorMessage);
       } else {
         const data = await response.json();
 
@@ -166,6 +175,11 @@ function Login(props) {
                     label="Remember me"
                   />
                 </div>
+                {error && (
+                  <Alert severity="error" onClose={() => setError(null)}>
+                    {error}
+                  </Alert>
+                )}{" "}
                 <div>
                   <Button
                     type="submit"
@@ -192,7 +206,10 @@ function Login(props) {
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
-                  <Link href="/TamirBanay-movies-app-frontend--live/#/signup" variant="body2">
+                  <Link
+                    href="/TamirBanay-movies-app-frontend--live/#/signup"
+                    variant="body2"
+                  >
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </div>
@@ -202,7 +219,6 @@ function Login(props) {
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
-      {error && <div className="error">{error}</div>}
     </div>
   );
 }
