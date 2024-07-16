@@ -149,7 +149,6 @@ export default function GradientCover(props) {
 
   const fetchFavoriteMovies = (UserID) => {
     if (userId != undefined) {
-      console.error("UserID is null or undefined");
       return;
     }
 

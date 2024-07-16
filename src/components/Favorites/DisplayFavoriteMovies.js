@@ -33,6 +33,7 @@ function DisplayFavoriteMovies() {
   const [currentUserId, setCurrentUserId] = useRecoilState(_currentUserId);
   const UserID = localStorage.getItem("userID");
   const csrfToken = localStorage.getItem("token");
+  const [userIsLoggedIn, setUserIsLoggedIn] = useRecoilState(_userIsLoggedIn);
 
   const [favoriteMovies, setFavoriteMovies] = useRecoilState(_favoritMovies);
   const [favoritMoviesDetails, setFavoritMovieDetails] = useRecoilState(
@@ -42,6 +43,14 @@ function DisplayFavoriteMovies() {
     navigate(`/${currentUserId}/trailer/movie/${movieID}`);
   };
   const removeFromFavorit = (movieId) => {
+    const UserID = localStorage.getItem("userID");
+    const csrfToken = localStorage.getItem("token");
+
+    if (!UserID || !csrfToken) {
+      console.error("UserID or csrfToken is missing");
+      return;
+    }
+
     const url = `https://my-movie-app-backend-f2e367df623e.herokuapp.com/remove_favorite/${movieId}/${UserID}/`;
     fetch(url, {
       method: "DELETE",
@@ -55,6 +64,9 @@ function DisplayFavoriteMovies() {
         if (response.ok) {
           setFavoriteMovies((prevState) =>
             prevState.filter((movie) => movie.tmdb_movie_id !== movieId)
+          );
+          setFavoritMovieDetails((prevState) =>
+            prevState.filter((movie) => movie && movie.id !== movieId)
           );
         } else {
           console.error("Failed to remove movie");
@@ -73,22 +85,52 @@ function DisplayFavoriteMovies() {
             console.error(
               `Failed to fetch movie id ${movie.tmdb_movie_id}: ${response.statusText}`
             );
-            return null; // or some other placeholder/error value
+            return null;
           }
           return response.json();
         })
       )
     );
 
-    setFavoritMovieDetails(moviesData);
+    setFavoritMovieDetails(moviesData.filter((movie) => movie !== null));
   };
+
   useEffect(() => {
+    const UserID = localStorage.getItem("userID");
     if (favoriteMovies.length > 0) {
       fetchMovieData();
       setCurrentUserId(UserID);
       localStorage.setItem("favoriteMovies", JSON.stringify(favoriteMovies));
+    } else {
+      setFavoritMovieDetails([]); // Clear movie details if there are no favorite movies
     }
   }, [favoriteMovies]);
+
+  useEffect(() => {
+    const UserID = localStorage.getItem("userID");
+    const csrfToken = localStorage.getItem("token");
+    if (userIsLoggedIn && UserID && csrfToken) {
+      fetch(
+        `https://my-movie-app-backend-f2e367df623e.herokuapp.com/favorite_movies/${UserID}/`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setFavoriteMovies(data.movies);
+        })
+        .catch((error) =>
+          console.error("Error fetching favorite movies:", error)
+        );
+    }
+  }, [userIsLoggedIn]);
+
   return (
     <Grid
       container
