@@ -1,5 +1,4 @@
 import { LoginSocialFacebook } from "reactjs-social-login";
-
 import { FacebookLoginButton } from "react-social-login-buttons";
 import {
   _userIsLoggedIn,
@@ -10,6 +9,7 @@ import {
 import { useRecoilState } from "recoil";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Margin, Padding } from "@mui/icons-material";
 
 function FaceBookLogInComponent() {
   const [user, setUser] = useRecoilState(_user);
@@ -33,14 +33,17 @@ function FaceBookLogInComponent() {
       FaceBookID: data.data.userID,
     };
     try {
-      const response = await fetch("https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/signup/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await fetch(
+        "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/signup/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-        body: JSON.stringify(faceBookUserData),
-      });
+          body: JSON.stringify(faceBookUserData),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -68,7 +71,8 @@ function FaceBookLogInComponent() {
   };
 
   const handleLoginFaceBook = async (username, password, user) => {
-    const url = "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/login/";
+    const url =
+      "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/login/";
     const credentials = {
       username,
       password,
@@ -104,8 +108,7 @@ function FaceBookLogInComponent() {
     }
   };
   return (
-    <div>
-      {" "}
+    <div style={{}}>
       <LoginSocialFacebook
         appId="660093776268943"
         onResolve={faceBookLogIn}
@@ -113,7 +116,15 @@ function FaceBookLogInComponent() {
           console.log(error);
         }}
       >
-        <FacebookLoginButton />
+        <FacebookLoginButton
+          style={{
+            height: "40px", // Adjust the height as needed
+            fontSize: "15px", // Adjust font size
+            // Padding: "0px",
+            margin: "0px",
+            width: "100%",
+          }}
+        />
       </LoginSocialFacebook>
     </div>
   );

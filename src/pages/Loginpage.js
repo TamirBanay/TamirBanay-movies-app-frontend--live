@@ -61,7 +61,6 @@ function Login(props) {
       "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/login/";
     const credentials = { username, password };
 
-
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -70,7 +69,6 @@ function Login(props) {
         },
         body: JSON.stringify(credentials),
       });
-
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -125,7 +123,7 @@ function Login(props) {
               component="form"
               onSubmit={handleSubmit}
               noValidate
-              sx={{ mt: 1 }}
+              sx={{ padding: "0px" }}
             >
               <TextField
                 type="text"
@@ -154,34 +152,51 @@ function Login(props) {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                onClick={handleLogin}
+              <div
+                className="allButtons"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                }}
               >
-                Sign In
-              </Button>
-              <FaceBookLogInComponent />
-              <br />
-              <GoogleLogInComponet />
-              <Grid container>
-                <Grid item xs>
+                <div>
+                  <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Remember me"
+                  />
+                </div>
+                <div>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    onClick={handleLogin}
+                  >
+                    Sign In
+                  </Button>
+                </div>
+                <div>
+                  <FaceBookLogInComponent />
+                </div>
+                <div>
+                  <GoogleLogInComponet />
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "8px",
+                  }}
+                >
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
-                </Grid>
-                <Grid item>
                   <Link href="/#/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
-                </Grid>
-              </Grid>
+                </div>
+              </div>
             </Box>
           </Box>
           <Copyright sx={{ mt: 8, mb: 4 }} />

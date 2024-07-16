@@ -7,6 +7,7 @@ import {
 } from "../../services/atom";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import googleImagLogIn from "../../images/googleImagLogIn.png";
 
 import { useRecoilState } from "recoil";
 import Typography from "@mui/material/Typography";
@@ -60,13 +61,16 @@ function GoogleLogInComponet() {
         };
 
         try {
-          const response = await fetch("https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/signup/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(googleUserData),
-          });
+          const response = await fetch(
+            "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/signup/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(googleUserData),
+            }
+          );
 
           if (!response.ok) {
             const errorData = await response.json();
@@ -102,7 +106,8 @@ function GoogleLogInComponet() {
   };
 
   const handleLoginGoogle = async (username, password, user) => {
-    const url = "http://localhost:8000/api/login/";
+    const url =
+      "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/login/";
     const credentials = {
       username,
       password,
@@ -141,12 +146,11 @@ function GoogleLogInComponet() {
   return (
     <div>
       {" "}
-      <IconButton sx={{ borderRadius: 0 }} onClick={() => loginGoogle()}>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
-        <Typography variant="subtitle1" color="#000">
-          {" "}
-          Sign in with Google
-        </Typography>
+      <IconButton
+        sx={{ borderRadius: 0, padding: 0, width: "100%" }}
+        onClick={() => loginGoogle()}
+      >
+        <img src={googleImagLogIn} sx={{ width: "100%" }} />
       </IconButton>
     </div>
   );
