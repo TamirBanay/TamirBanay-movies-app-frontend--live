@@ -117,62 +117,17 @@ function SeriesSection({ seriesType, seriesData, imgPath }) {
       <Typography
         level="body-lg"
         fontWeight="lg"
+        sx={{ paddingLeft: "10px" }}
         textColor={isDark == "dark" ? "#f8fbff" : "#000"}
       >
         {capitalizeAndRemoveUnderscores(seriesType)}
       </Typography>
-      <p />
+
       <Box
         sx={{
           position: "relative",
         }}
       >
-        <IconButton
-          onClick={handleScrollLeft}
-          sx={{
-            position: "absolute",
-            left: 0,
-            top: "50%",
-            transform: "translateY(-50%)",
-            zIndex: 1000,
-            color: "white",
-
-            "&:hover": {
-              color: "white",
-              bgcolor: "rgba(0, 0, 0, 0.6)",
-              height: "100%",
-              width: "5%",
-            },
-          }}
-        >
-          <ArrowBackIosIcon
-            sx={{ "&:hover": { width: "70%", height: "70%" } }}
-          />
-        </IconButton>
-
-        <IconButton
-          onClick={handleScrollRight}
-          sx={{
-            position: "absolute",
-            right: 0,
-            top: "50%",
-            transform: "translateY(-50%)",
-            zIndex: 1000,
-            color: "white",
-
-            "&:hover": {
-              color: "white",
-              bgcolor: "rgba(0, 0, 0, 0.6)",
-              height: "100%",
-              width: "5%",
-            },
-          }}
-        >
-          <ArrowForwardIosIcon
-            sx={{ "&:hover": { width: "70%", height: "70%" } }}
-          />
-        </IconButton>
-
         <Box
           ref={scrollRef}
           sx={{
@@ -193,23 +148,23 @@ function SeriesSection({ seriesType, seriesData, imgPath }) {
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  width: "auto", // Increase width
+                  width: "auto",
                   height: "auto",
                 }}
                 key={series.id}
               >
                 <Card
-                  ref={cardRef} // <-- Attach the ref here
+                  ref={cardRef}
                   sx={{
                     border: "solid 1px gray",
 
-                    width: "60px", // Increase width
-                    height: "140px", // Increase height
+                    width: "60px",
+                    height: "140px",
                     borderRadius: "7px",
                     transition: "all 0.3s",
-                    overflow: "hidden", // Use "hidden" to ensure the image doesn't overflow
+                    overflow: "hidden",
                     zIndex: 1,
-                    backgroundColor: "transparent", // Remove white background
+                    backgroundColor: "transparent",
                     transform:
                       isHovered && hoveredSeriesId === series.id
                         ? "scale(1.05)"
@@ -220,44 +175,20 @@ function SeriesSection({ seriesType, seriesData, imgPath }) {
                     style={{
                       zIndex: 1,
                       transition: "all 0.3s",
-                      width: "100%", // Set fixed width for images
-                      height: "100%", // Set fixed height for images
+                      width: "100%",
+                      height: "100%",
                     }}
                   >
                     <img
-                      src={`${imgPath + series.backdrop_path}`}
+                      src={`${imgPath + series.backdrop_path}?w=1200&h=1800`} // Adjust the query parameters as needed
                       alt={series.name}
                       loading="lazy"
                       style={{
-                        width: "100", // Ensure image fills the container
-                        height: "100%", // Ensure image fills the container
-                        objectFit: "cover", // Ensure the image covers the container without stretching
+                        width: "100%",
+                        height: "100%",
                       }}
                     />
                   </CardCover>
-                  <CardContent
-                    sx={
-                      {
-                        // backgroundColor: "transparent", // Remove white background
-                      }
-                    }
-                  >
-                    {/* <Typography
-                      level="body-lg"
-                      fontWeight="md"
-                      textColor="#fff"
-                      mt={{ xs: 12, sm: 18 }}
-                      sx={{
-                        width: "100%",
-                        // alignContent: "center",
-                        textAlign: "start", // Center the text
-                        fontSize: "15px", // Ensure consistent font size
-                        color: "black",
-                      }}
-                    >
-                      {series.name}
-                    </Typography> */}
-                  </CardContent>
                 </Card>
                 <>
                   {showPopup &&

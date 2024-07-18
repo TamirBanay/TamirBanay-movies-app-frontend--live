@@ -10,19 +10,18 @@ import {
   _user,
   _airingTodaySerisList,
 } from "../services/atom";
+import { useMediaQuery } from "@mui/material";
 
 import SeriesCards from "../components/Series/SeriesCards";
+import SeriesCardsMobile from "../components/Series/SeriesCardsMobile";
 
 function Series() {
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [airingTodaySerisList, setAiringTodaySerisList] = useRecoilState(
     _airingTodaySerisList
   );
 
-  return (
-    <div>
-      <SeriesCards />
-    </div>
-  );
+  return <div>{isMobile ? <SeriesCardsMobile /> : <SeriesCards />}</div>;
 }
 
 export default Series;
