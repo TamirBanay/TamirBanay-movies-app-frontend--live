@@ -79,45 +79,64 @@ function ResponsiveAppBar() {
   const token = localStorage.getItem("token"); // Replace with the actual token
   // const userIsLoggedIn = localStorage.getItem("isLoggedIn");
   async function handleLogout() {
-    const response = await fetch(
-      "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/logout/",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (response.ok) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("userID");
-      localStorage.removeItem("userData");
-      localStorage.removeItem("favoriteMovies");
-      localStorage.setItem("isLoggedIn", false);
-      setUserIsLoggedIn(false);
-      setIsDark("light");
-      setAnchorElUser(false);
-      setCurrentUserId(null);
+    if (currentUserId == undefined) {
       navigate("/login");
     } else {
-      navigate("/login");
-      console.error("Logout failed:", response.statusText);
-    }
+      const response = await fetch(
+        "https://my-movie-app-backend-f2e367df623e.herokuapp.com/api/logout/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            mode: "no-cors",
+          },
+        }
+      );
 
-    if (user.isGoogleUser) googleLogout();
+      if (response.ok) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userID");
+        localStorage.removeItem("userData");
+        localStorage.removeItem("favoriteMovies");
+        localStorage.setItem("isLoggedIn", false);
+        setUserIsLoggedIn(false);
+        setIsDark("light");
+        setAnchorElUser(false);
+        setCurrentUserId(null);
+        navigate("/login");
+      } else {
+        navigate("/login");
+        console.error("Logout failed:", response.statusText);
+      }
+
+      if (user.isGoogleUser) googleLogout();
+    }
   }
 
   const handleProfile = () => {
     navigate(`/${currentUserId}/profile`);
   };
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar
+      position="static"
+      sx={{
+        width: "100%",
+        display: "flex",
+      }}
+    >
+      <Container
+        maxWidth="xl"
+        sx={{
+          width: "100%",
+        }}
+      >
+        <Toolbar
+          disableGutters
+          sx={{ display: "flex", justifyContent: "space-between" }}
+        >
           <MovieCreationTwoToneIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            sx={{ display: { xs: "none", md: "flex" } }}
           />
           <Typography
             variant="h6"
@@ -137,7 +156,16 @@ function ResponsiveAppBar() {
             MOVIES
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{
+              // bgcolor: "black",
+              // flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              width: "fitContent",
+              m: "0px",
+              padding: "0px",
+            }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -237,27 +265,36 @@ function ResponsiveAppBar() {
               )}
             </Menu>
           </Box>
-          <MovieCreationTwoToneIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
-          />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href={`/TamirBanay-movies-app-frontend--live/#/${currentUserId}`}
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+
+          <Box
+            sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
           >
-            MOVIES
-          </Typography>
+            <MovieCreationTwoToneIcon
+              sx={{
+                display: { xs: "flex", md: "none" },
+                mr: 1,
+              }}
+            />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href={`/TamirBanay-movies-app-frontend--live/#/${currentUserId}`}
+              sx={{
+                // mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+                width: "fitContent",
+              }}
+            >
+              MOVIES
+            </Typography>
+          </Box>
           <Box
             sx={{
               flexGrow: 1,
