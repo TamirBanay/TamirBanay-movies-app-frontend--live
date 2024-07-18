@@ -76,8 +76,7 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const token = localStorage.getItem("token"); // Replace with the actual token
-  // const userIsLoggedIn = localStorage.getItem("isLoggedIn");
+  const token = localStorage.getItem("token");
   async function handleLogout() {
     if (currentUserId == undefined) {
       navigate("/login");
