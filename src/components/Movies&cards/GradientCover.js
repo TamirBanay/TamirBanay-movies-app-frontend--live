@@ -187,7 +187,7 @@ export default function GradientCover(props) {
       <p />
       <Grid
         container
-        direction="row"
+        direction="column-reverse"
         justifyContent="center"
         alignItems="center"
         spacing={0.1}
