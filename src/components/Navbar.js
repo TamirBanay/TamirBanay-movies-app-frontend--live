@@ -89,7 +89,6 @@ function ResponsiveAppBar() {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
-            mode: "no-cors",
           },
         }
       );
