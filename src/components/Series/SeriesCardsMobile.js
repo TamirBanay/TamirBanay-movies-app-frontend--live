@@ -12,6 +12,7 @@ import Popup from "./PopupSeriesCard";
 import IconButton from "@mui/joy/IconButton";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
+
 import { Link, useParams } from "react-router-dom";
 import {
   _favoriteSeries,
@@ -172,13 +173,19 @@ function SeriesSection({ seriesType, seriesData, imgPath }) {
                   }}
                 >
                   <CardCover
-                    style={{
+                    sx={{
                       zIndex: 1,
                       transition: "all 0.3s",
                       width: "100%",
                       height: "100%",
                     }}
                   >
+                    <CardCover
+                      sx={{
+                        background:
+                          "linear-gradient(to top, rgba(0,0,0,0.2), rgba(0,0,0,0) 200px), linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0) 300px)",
+                      }}
+                    />
                     <img
                       src={`${imgPath + series.backdrop_path}?w=1200&h=1800`} // Adjust the query parameters as needed
                       alt={series.name}
@@ -188,6 +195,24 @@ function SeriesSection({ seriesType, seriesData, imgPath }) {
                         height: "100%",
                       }}
                     />
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        bottom: 0,
+                        width: "100%",
+                        color: "#fff",
+                        textAlign: "center",
+                        padding: "5px 0",
+                      }}
+                    >
+                      <Typography
+                        variant="body2"
+                        fontWeight="bold"
+                        color="white"
+                      >
+                        {series.name}
+                      </Typography>
+                    </Box>
                   </CardCover>
                 </Card>
                 <>

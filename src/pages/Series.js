@@ -16,7 +16,7 @@ import SeriesCards from "../components/Series/SeriesCards";
 import SeriesCardsMobile from "../components/Series/SeriesCardsMobile";
 
 function Series() {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery("(max-width:500px)");
   const [airingTodaySerisList, setAiringTodaySerisList] = useRecoilState(
     _airingTodaySerisList
   );
