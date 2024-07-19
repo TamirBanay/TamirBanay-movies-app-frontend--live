@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import RatingStars from "./RatingStars";
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
 import { useNavigate } from "react-router-dom";
-
+import { useMediaQuery } from "@mui/material";
 import {
   _moviesList,
   _currentPage,
@@ -52,6 +52,7 @@ export default function GradientCover(props) {
   const navigate = useNavigate();
   const [favoritesMovie, setFavoritesMovie] = useState([]);
   const [animatedMovieId, setAnimatedMovieId] = useState(null);
+  const isMobile = useMediaQuery("(max-width:500px)");
 
   const [showAlertSuccessAddMovie, setShowAlertSuccessAddMovie] =
     useRecoilState(_showAlertSuccessAddMovie);
@@ -195,7 +196,7 @@ export default function GradientCover(props) {
         <Grid>
           <SelectCategory />
         </Grid>
-
+        <br />
         <Grid>
           <input
             style={inputStyle}
@@ -214,7 +215,11 @@ export default function GradientCover(props) {
       >
         {filteredMovies.map((movie) => (
           <Card
-            sx={{ minHeight: "280px", width: 180, m: 1 }}
+            sx={{
+              minHeight: isMobile ? "250px" : "280px",
+              width: isMobile ? "140px" : "180px",
+              m: 1,
+            }}
             key={movie.id}
             onClick={() => handleAddToFavorites(movie)}
             style={animatedMovieId === movie.id ? blownUpStyle : normalStyle}
