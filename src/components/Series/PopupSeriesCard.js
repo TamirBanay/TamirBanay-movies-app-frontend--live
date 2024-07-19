@@ -15,6 +15,7 @@ import {
   _reviewsOpen,
   __reviewsForCurrentMoive,
 } from "../../services/atom";
+import { useMediaQuery } from "@mui/material";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useRecoilState } from "recoil";
 import { useNavigate, useParams } from "react-router-dom";
@@ -31,6 +32,7 @@ function Popup({ series, position }) {
   const favoriteSeriesInStorage = JSON.parse(favoriteSeriesStorage || "[]");
   const [reviewsOn, setreviewsOn] = useRecoilState(_reviewsOpen);
   const [reviews, setReviews] = useRecoilState(__reviewsForCurrentMoive);
+  const isMobile = useMediaQuery("(max-width:500px)");
 
   const isSeriesFavorite = favoriteSeriesInStorage.some(
     (seriesItem) => seriesItem.tmdb_series_id === series.id
@@ -194,18 +196,17 @@ function Popup({ series, position }) {
         top: `${position.top}px`,
         left: `${position.left}px`,
         zIndex: 2,
-        transform: "translate(-50%, -50%)", // This will adjust based on the popup's own size.
-
+        transform: "translate(-50%, -50%)",
         background: isDark == "dark" ? "#000" : "#fff",
-        width: "400px",
-        height: "400px",
+        width: isMobile ? "300px" : "400px",
+        height: isMobile ? "300px" : "400px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "flex-start",
         overflow: "auto",
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-
+        padding: "0px",
         borderRadius: "2px",
       }}
       key={series.id}
@@ -227,7 +228,7 @@ function Popup({ series, position }) {
           flexDirection: "row",
           justifyContent: "space-between",
           width: "100%",
-          paddingTop: "10px",
+          paddingTop: isMobile ? "0px" : "10px",
         }}
       >
         <div
