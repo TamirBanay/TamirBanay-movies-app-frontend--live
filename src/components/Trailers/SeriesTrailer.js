@@ -18,6 +18,7 @@ import {
   _reviewsOpen,
 } from "../../services/atom";
 import { useRecoilState } from "recoil";
+import { useMediaQuery } from "@mui/material";
 
 import Divider from "@mui/joy/Divider";
 import Typography from "@mui/joy/Typography";
@@ -40,6 +41,7 @@ function SeriesTrailer(props) {
   const [images, setImages] = useRecoilState(_imagesForCurrentMoive);
   const [reviews, setReviews] = useRecoilState(__reviewsForCurrentMoive);
   const [reviewsOn, setreviewsOn] = useRecoilState(_reviewsOpen);
+  const isMobile = useMediaQuery("(max-width:500px)");
   const handleReviewsOn = () => {
     setreviewsOn(!reviewsOn);
   };
@@ -155,29 +157,32 @@ function SeriesTrailer(props) {
       .then((response) => setReviews(response.results))
       .catch((err) => console.error(err));
   }, [mediaId]);
-
+  console.log(series);
   return (
     <div>
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          // justifyContent: "center",
+          flexDirection: "column",
         }}
       >
         <h1
           style={{
             color: isDark == "dark" ? "#D0E7D2" : "#191717",
             display: "flex",
+            // width: "70%",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "70%",
+            width: "fitContent",
           }}
         >
-          {series.title}
-          <RatingStars rating={series.vote_average} />
+          {series.name}
         </h1>
+        <RatingStars rating={series.vote_average} />
       </div>
+      <br />
 
       {/* Flex container */}
 
@@ -186,18 +191,16 @@ function SeriesTrailer(props) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          flexDirection: isMobile ? "column" : "row",
         }}
       >
-        {/* <AddToFavoritList movieTitle={movie.title} movieId={movie.id} /> */}
-
         {/* Image */}
         {series.poster_path && (
           <img
             src={`${imgPath + series.poster_path}`}
             alt={series.title}
             style={{
-              // position: "ab",
-              width: "15%",
+              width: isMobile ? "70%" : "15%",
               objectFit: "cover",
               marginRight: "0.2%",
               height: "415px",
@@ -209,7 +212,7 @@ function SeriesTrailer(props) {
         {/* Video */}
         {videoKey ? (
           <iframe
-            width="40%" // Adjusted width to 65% to take into account the image and potential margins
+            width={isMobile ? "70%" : "40%"} // Adjusted width to 65% to take into account the image and potential margins
             height="415"
             src={`https://www.youtube.com/embed/${videoKey}`}
             title="YouTube video player"
@@ -231,11 +234,12 @@ function SeriesTrailer(props) {
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
+            flexDirection: isMobile ? "row" : "column",
             justifyContent: "space-between",
-            width: "15%",
+            width: isMobile ? "70%" : "15%",
             marginLeft: "0.3%",
-            height: "415px",
+            height: isMobile ? "200px" : "415px",
+            gap: isMobile ? "1%" : "",
           }}
         >
           <div
