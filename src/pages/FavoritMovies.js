@@ -68,9 +68,19 @@ function FavoritMovies() {
       }}
     >
       <p />
-      <Divider>MOVIES</Divider>
+      <Divider
+        sx={{ fontSize: "lg", color: isDark === "dark" ? "#fff" : "#000" }}
+      >
+        MOVIES
+      </Divider>
       <DisplayFavoriteMovies />
-      <Divider>SERIES</Divider> <DisplayFavoriteSeries />
+      <Divider
+        sx={{ fontSize: "lg", color: isDark === "dark" ? "#fff" : "#000" }}
+      >
+        SERIES
+      </Divider>{" "}
+      <DisplayFavoriteSeries />
+      <Divider />
     </div>
   );
 }
