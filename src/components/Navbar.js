@@ -173,13 +173,15 @@ function ResponsiveAppBar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={
-                location.pathname.includes("/trailer")
+                location.pathname.includes("/trailer") ||
+                location.pathname.includes("/favorits")
                   ? handleBackClick
                   : handleOpenNavMenu
               }
               color="inherit"
             >
-              {location.pathname.includes("/trailer") ? (
+              {location.pathname.includes("/trailer") ||
+              location.pathname.includes("/favorits") ? (
                 <ArrowBackIcon />
               ) : (
                 <MenuIcon />
@@ -250,7 +252,9 @@ function ResponsiveAppBar() {
                       to={`/#/`}
                       style={{ color: "#000", textDecoration: "none" }}
                     >
-                      MOVIES
+                      {location.pathname.includes("/series")
+                        ? "SERIES"
+                        : "MOVIES"}{" "}
                     </Link>
                   </MenuItem>
                   <MenuItem
@@ -295,7 +299,7 @@ function ResponsiveAppBar() {
                 width: "fitContent",
               }}
             >
-              MOVIES
+              {location.pathname.includes("/series") ? "SERIES" : "MOVIES"}{" "}
             </Typography>
           </Box>
           <Box
