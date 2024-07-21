@@ -55,18 +55,21 @@ function AddToFavoritList(props) {
         if (isAlreadyFavorite) {
           return;
         }
-        fetch("https://my-movie-app-backend-f2e367df623e.herokuapp.com/add_favorite/", {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "X-CSRFToken": csrfToken,
-          },
-          body: JSON.stringify({
-            tmdb_movie_id: movieId,
-            user: UserId, // Use the state variable
-          }),
-        })
+        fetch(
+          "https://my-movie-app-backend-f2e367df623e.herokuapp.com/add_favorite/",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrfToken,
+            },
+            body: JSON.stringify({
+              tmdb_movie_id: movieId,
+              user: UserId, // Use the state variable
+            }),
+          }
+        )
           .then((response) => response.json())
           .then((response) => {
             setShowAlertSuccessAddMovie(true);
@@ -128,6 +131,7 @@ function AddToFavoritList(props) {
             }
           />
         }
+        fontSize="sm"
         textColor="neutral.300"
       >
         {favoriteMovies.some(
