@@ -237,29 +237,15 @@ export default function GradientCover(props) {
             />
 
             <CardContent sx={{ justifyContent: "flex-end" }}>
-              <Link
-                style={{ color: "#000", textDecoration: "none" }}
-                to={`/movie/${movie.id}`}
-                key={movie.id}
+              <Typography
+                level="title-lg"
+                textColor="#fff"
+                onClick={() => handleRoutToTrailer(movie.id)}
               >
-                <Typography
-                  level="title-lg"
-                  textColor="#fff"
-                  onClick={() => handleOpenMovie(movie.id)}
-                >
-                  {movie.title}
-                </Typography>
-              </Link>
+                {movie.title}
+              </Typography>
               <AddToFavoritList movieTitle={movie.title} movieId={movie.id} />
             </CardContent>
-            <IconButton
-              sx={{
-                bgcolor: "#D0E7D2",
-              }}
-              onClick={() => handleRoutToTrailer(movie.id)} // Here is the attachment
-            >
-              <PlayArrowOutlinedIcon /> Watch Trailer
-            </IconButton>
           </Card>
         ))}
       </Grid>
