@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -12,10 +13,9 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import Badge from "@mui/material/Badge";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useRecoilState } from "recoil";
@@ -52,16 +52,19 @@ function ResponsiveAppBar() {
   const favoriteSeriesStorage = JSON.parse(
     localStorage.getItem("favoriteSeries") || "[]"
   );
-
   const [favoriteMovies, setFavoriteMovies] = useRecoilState(_favoritMovies);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [userIsLoggedIn, setUserIsLoggedIn] = useRecoilState(_userIsLoggedIn);
   const [currentUserId, setCurrentUserId] = useRecoilState(_currentUserId);
   const [user, setUser] = useRecoilState(_user);
+  const location = useLocation();
 
   const navigate = useNavigate();
 
+  const handleBackClick = () => {
+    navigate(-1);
+  };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -169,11 +172,20 @@ function ResponsiveAppBar() {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={
+                location.pathname.includes("/trailer")
+                  ? handleBackClick
+                  : handleOpenNavMenu
+              }
               color="inherit"
             >
-              <MenuIcon />
+              {location.pathname.includes("/trailer") ? (
+                <ArrowBackIcon />
+              ) : (
+                <MenuIcon />
+              )}
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -213,14 +225,7 @@ function ResponsiveAppBar() {
                       to={`/${currentUserId}/favorits`}
                       style={{ color: "#000", textDecoration: "none" }}
                     >
-                      <StyledBadge
-                        badgeContent={
-                          favoriteMovies.length + favoriteSeriesStorage.length
-                        }
-                        color="primary"
-                      >
-                        FAVORITE
-                      </StyledBadge>
+                      FAVORITE
                     </Link>
                   </MenuItem>
                 </div>
