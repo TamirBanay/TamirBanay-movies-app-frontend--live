@@ -208,17 +208,31 @@ function ResponsiveAppBar() {
             >
               {userIsLoggedIn ? (
                 <div>
-                  <MenuItem
-                    onClick={handleCloseNavMenu}
-                    sx={{ width: "140px" }}
-                  >
-                    <Link
-                      to={`/${currentUserId}/series`}
-                      style={{ color: "#000", textDecoration: "none" }}
+                  {location.pathname.includes("/series") ? (
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      sx={{ width: "140px" }}
                     >
-                      SERIES
-                    </Link>
-                  </MenuItem>
+                      <Link
+                        to={`/#/${currentUserId}/`}
+                        style={{ color: "#000", textDecoration: "none" }}
+                      >
+                        MOVIES
+                      </Link>
+                    </MenuItem>
+                  ) : (
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      sx={{ width: "140px" }}
+                    >
+                      <Link
+                        to={`/${currentUserId}/series`}
+                        style={{ color: "#000", textDecoration: "none" }}
+                      >
+                        SERIES
+                      </Link>
+                    </MenuItem>
+                  )}{" "}
                   <MenuItem
                     onClick={handleCloseNavMenu}
                     sx={{ width: "130px" }}
