@@ -68,9 +68,9 @@ function FavoritMovies() {
       }}
     >
       <p />
-      <Typography sx={{ textAlign: "center" }}>Movies</Typography>{" "}
+      <Divider>MOVIES</Divider>
       <DisplayFavoriteMovies />
-      <Divider>Series</Divider> <DisplayFavoriteSeries />
+      <Divider>SERIES</Divider> <DisplayFavoriteSeries />
     </div>
   );
 }

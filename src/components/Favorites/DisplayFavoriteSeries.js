@@ -137,8 +137,8 @@ function DisplayFavoriteSeries() {
         favoritSeriesDetails.map((series) => (
           <Card
             sx={{
-              minHeight: "280px",
-              width: 180,
+              height: "230px",
+              width: "140px",
               m: 1,
             }}
             key={series.id}
@@ -155,11 +155,11 @@ function DisplayFavoriteSeries() {
             <CardContent sx={{ justifyContent: "flex-end" }}>
               <Link
                 style={{ color: "#000", textDecoration: "none" }}
-                to={`/movie/${series.id}`}
+                to={`/${currentUserId}/trailer/series/${series.id}`}
                 key={series.id}
               >
                 <Typography level="title-lg" textColor="#fff">
-                  {series.title}
+                  {series.name}
                 </Typography>
               </Link>
               <Typography
@@ -170,18 +170,11 @@ function DisplayFavoriteSeries() {
                   />
                 }
                 textColor="neutral.300"
+                fontSize="sm"
               >
                 Remove from list
               </Typography>
             </CardContent>
-            <IconButton
-              sx={{
-                bgcolor: "#D0E7D2",
-              }}
-              onClick={() => handleRoutToTrailer(series.id)} // Here is the attachment
-            >
-              <PlayArrowOutlinedIcon /> Watch Trailer
-            </IconButton>
           </Card>
         ))
       )}

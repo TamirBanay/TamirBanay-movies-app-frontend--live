@@ -154,8 +154,8 @@ function DisplayFavoriteMovies() {
         favoritMoviesDetails.map((movie) => (
           <Card
             sx={{
-              minHeight: "280px",
-              width: 180,
+              height: "230px",
+              width: "140px",
               m: 1,
             }}
             key={movie.id}
@@ -172,7 +172,7 @@ function DisplayFavoriteMovies() {
             <CardContent sx={{ justifyContent: "flex-end" }}>
               <Link
                 style={{ color: "#000", textDecoration: "none" }}
-                to={`/movie/${movie.id}`}
+                to={`/${currentUserId}/trailer/movie/${movie.id}`}
                 key={movie.id}
               >
                 <Typography level="title-lg" textColor="#fff">
@@ -187,18 +187,11 @@ function DisplayFavoriteMovies() {
                   />
                 }
                 textColor="neutral.300"
+                fontSize="sm"
               >
                 Remove from list
               </Typography>
             </CardContent>
-            <IconButton
-              sx={{
-                bgcolor: "#D0E7D2",
-              }}
-              onClick={() => handleRoutToTrailer(movie.id)} // Here is the attachment
-            >
-              <PlayArrowOutlinedIcon /> Watch Trailer
-            </IconButton>
           </Card>
         ))
       )}
